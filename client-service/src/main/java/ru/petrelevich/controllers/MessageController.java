@@ -1,7 +1,5 @@
 package ru.petrelevich.controllers;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.event.EventListener;
@@ -18,7 +16,6 @@ import org.springframework.web.socket.messaging.SessionSubscribeEvent;
 import org.springframework.web.util.HtmlUtils;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-import reactor.core.scheduler.Scheduler;
 import ru.petrelevich.domain.Message;
 
 @Controller
@@ -28,12 +25,10 @@ public class MessageController {
     private static final String TOPIC_TEMPLATE = "/topic/response.";
 
     private final WebClient datastoreClient;
-    private final ObjectMapper objectMapper;
     private final SimpMessagingTemplate template;
 
-    public MessageController(WebClient datastoreClient, ObjectMapper objectMapper, SimpMessagingTemplate template) {
+    public MessageController(WebClient datastoreClient, SimpMessagingTemplate template) {
         this.datastoreClient = datastoreClient;
-        this.objectMapper = objectMapper;
         this.template = template;
     }
 
